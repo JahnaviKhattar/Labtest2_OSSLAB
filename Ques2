@@ -1,0 +1,13 @@
+import numpy as np
+
+def longestString(array):
+    str = [s for s in array if len(s)>5]
+    
+    if str:
+        return max(str,key=len)
+    else:
+        return min(str,key=len)
+    
+array= np.array(["hello", "maximum"])
+print(longestString(array))
+    
