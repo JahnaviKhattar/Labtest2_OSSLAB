@@ -1,0 +1,40 @@
+from sklearn.datasets import load_iris
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score,precision_score, recall_score,f1_score
+from sklearn.preprocessing import StandardScaler
+
+data = load_iris()
+a = pd.DataFrame(data.data, columns = data.feature_names)
+b = pd.Series(data.target)
+
+print(x.head(10))
+b['target'] = data.target
+num_features = len(a.columns) - 1 
+print(f"Number of features: {num_features}")
+print(f"target Classes: {data.target}")
+
+sns.pairplot(a)
+plt.show()
+plt.figure(figsize=(12, 8))
+sns.heatmap(a.corr(),  cmap='coolwarm')
+plt.show()
+
+X = a.drop(columns=['target'])
+y = b['target']
+splits = {
+    "80-20": train_test_split(X, y, test_size=0.2, random_state=30)
+}
+
+def evaluate_model(model, X_train, X_test, y_train, y_test):
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+    accuracy = accuracy_score(y_test, y_pred)
+    precision = precision_score(y_test, y_pred, zero_division=1)
+    recall = recall_score(y_test, y_pred, zero_division=1)
+    f1 = f1_score(y_test, y_pred, zero_division=1)
+    return accuracy, precision, recall, f1
+
+results = {}
